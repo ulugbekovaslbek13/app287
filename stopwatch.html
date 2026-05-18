@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Aslbek | Stopwatch</title>
+    <style>
+        body {
+            background: #050505;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .container {
+            text-align: center;
+            background: #111;
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        #display {
+            font-size: 80px;
+            margin-bottom: 30px;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .btns button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .btns button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="display">00:00:00</div>
+    <div class="btns">
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+</div>
+
+<script>
+    let timer;
+    let seconds = 0, minutes = 0, hours = 0;
+
+    function start() {
+        if (!timer) {
+            timer = setInterval(run, 1000);
+        }
+    }
+
+    function run() {
+        seconds++;
+        if (seconds == 60) { seconds = 0; minutes++; }
+        if (minutes == 60) { minutes = 0; hours++; }
+
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        
+        document.getElementById('display').innerHTML = h + ":" + m + ":" + s;
+    }
+
+    function stop() {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    function reset() {
+        stop();
+        seconds = 0; minutes = 0; hours = 0;
+        document.getElementById('display').innerHTML = "00:00:00";
+    }
+</script>
+
+</body>
+</html>
